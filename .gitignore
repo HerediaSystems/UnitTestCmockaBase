@@ -50,3 +50,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+labs/LAB1_CompilerEtExecuter/build/*
+labs/LAB2_TesterLaFonction/build/*
+labs/LAB3_Mocking/build/*
+labs/LAB4_APartirDesTests/build/*
