@@ -1,9 +1,17 @@
+/*
+ *
+ * File: DRV_ONOFF_REGUL.c
+ * Author: Maxime HEREDIA-HIDALGO
+ * Copyright (c) 2024  HerediaSystems : https://www.heredia-systems.com/
+ *
+ */
+
 #include "DRV_ONOFF_REGUL.h"
 #include "SYS_assert.h"
 
 #include <stdlib.h>
 
-void DRV_ONOFF_REGUL_init(DRV_ONOFF_REGUL_OBJ *obj,uint32_t hysteresis, void (*commande)(DRV_ONOFF_REGUL_OBJ *obj,bool on))
+void DRV_ONOFF_REGUL_init(DRV_ONOFF_REGUL_OBJ *obj, uint32_t hysteresis, void (*commande)(DRV_ONOFF_REGUL_OBJ *obj, bool on))
 {
     assert(obj != NULL);
     assert(commande != NULL);
@@ -15,7 +23,7 @@ void DRV_ONOFF_REGUL_init(DRV_ONOFF_REGUL_OBJ *obj,uint32_t hysteresis, void (*c
     obj->commande = commande;
 }
 
-void DRV_ONOFF_REGUL_setTarget(DRV_ONOFF_REGUL_OBJ *obj,int32_t target)
+void DRV_ONOFF_REGUL_setTarget(DRV_ONOFF_REGUL_OBJ *obj, int32_t target)
 {
     assert(obj != NULL);
     assert(target >= -50);
@@ -24,19 +32,19 @@ void DRV_ONOFF_REGUL_setTarget(DRV_ONOFF_REGUL_OBJ *obj,int32_t target)
     obj->target = target;
 }
 
-void DRV_ONOFF_REGUL_updateTemperature(DRV_ONOFF_REGUL_OBJ *obj,int32_t temperature)
+void DRV_ONOFF_REGUL_updateTemperature(DRV_ONOFF_REGUL_OBJ *obj, int32_t temperature)
 {
     assert(obj != NULL);
     assert(temperature >= -100);
     assert(temperature <= 150);
 
-    if(temperature > (obj->target + obj->hysteresis))
+    if (temperature > (obj->target + obj->hysteresis))
     {
-        obj->commande(obj,false);
+        obj->commande(obj, false);
     }
 
-    if(temperature < (obj->target - obj->hysteresis))
+    if (temperature < (obj->target - obj->hysteresis))
     {
-        obj->commande(obj,true);
+        obj->commande(obj, true);
     }
 }
